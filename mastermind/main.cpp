@@ -51,7 +51,6 @@ void userHelp(vector<string> command)
 	cout << "help [command]............displays help.\n";
 	cout << "history...................display game moves.\n";
 	cout << "new.......................initialize and start new game.\n";
-	cout << "reset n...................reset game to move n.\n";
 	cout << endl;
 	return;  
     }
@@ -362,7 +361,6 @@ void goodbye()
 {
     ;
 }
-
 
 
 void checkForWin()
