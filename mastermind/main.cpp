@@ -30,12 +30,6 @@ void mastermind_init()
 {
 }
 
-void userDisplay() 
-{
-    string border;
-
-    //mb.dump();
-}
 
 void userExit() 
 {
@@ -53,7 +47,6 @@ void userHelp(vector<string> command)
 	topic="";
     cout << endl;
     if (topic=="") {
-	cout << "display...................displays the board\n";
 	cout << "exit/quit.................terminates program.\n";
 	cout << "help [command]............displays help.\n";
 	cout << "history...................display game moves.\n";
@@ -69,6 +62,7 @@ void userHistory()
 {
     vector<string>::size_type numOfMoves;
     vector<string>::const_iterator iter;
+    string theMove;
     int i;
     unsigned  long int original_width;
 
@@ -79,9 +73,15 @@ void userHistory()
     if (numOfMoves==0) return;
     i=1;
     while (iter!=moveHistory->end()) {
-	cout << "  " << i << " " << (*iter);
+    	try {
+		theMove=mb.makeMove(*iter);
+    	}
+    	catch (string e) {
+		// This should never happen
+		return;
+    	}
+	cout << "Move " << i << ": (" << (*iter)  << ") - " << theMove << endl;
 	iter++;
-	cout << endl;
 	i++;
     }
     cout.width(original_width);
@@ -400,20 +400,12 @@ int main()
 	    cout << "? ";
 	}
 	else {
-	    cout << "Guess " << moveHistory->size()+1 << "? ";
+	    cout << endl << "Guess " << moveHistory->size()+1 << "? ";
 	}
 	command=Util::getInput(cin);
+	clearerr(stdin);
 	if (command.size()==0) continue; // read more input
 	line=command[0];
-	if (line=="d") {
-	    userDisplay();
-	    continue;
-	}
-	if (line=="display") {
-	    if (command.size()==1) 
-		userDisplay();
-	    continue;
-	}
 	if ((line=="exit") || (line=="quit")) {
 	    userExit();
 	    return EXIT_SUCCESS;
