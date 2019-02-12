@@ -27,7 +27,10 @@ vector<string> Util::getInput(istream &in)
     long unsigned int start,end,i;
 
     getline(in, aString);
-    if (in.eof()==1) in.clear();
+    if (in.eof()==1) {
+	//clearerr(stdin);
+	in.clear();
+    }
 
     start=aString.find_first_not_of(' ');
     if (start==string::npos) return result;
